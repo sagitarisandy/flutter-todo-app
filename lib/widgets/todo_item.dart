@@ -5,8 +5,10 @@ import '../constans/colors.dart';
 
 class TodoItem extends StatelessWidget {
   final ToDo todo;
+  final onToDoChange;
+  final onDeleteItem;
 
-  const TodoItem({Key? key, required this.todo}) : super(key:key);
+  const TodoItem({Key? key, required this.todo, required this.onToDoChange, required this.onDeleteItem }) : super(key:key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,8 @@ class TodoItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 15),
       child: ListTile(
         onTap: () {
-          print('clicked');
+          // print('clicked');
+          onToDoChange(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -22,8 +25,8 @@ class TodoItem extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         tileColor: Colors.white,
         leading: Icon(
-          todo.isDone? Icons.check_box : Icons.check_box_outline_blank_outlined,
-          color: tdBlue
+          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank_outlined,
+          color: todo.isDone ? tdBlue : tdGrey,
         ),
         title: Text(
           todo.todoText!,
@@ -49,7 +52,8 @@ class TodoItem extends StatelessWidget {
               iconSize: 18,
               icon: Icon(Icons.delete),
               onPressed: () {
-                print('clicked delete');
+                // print('clicked delete');
+                onDeleteItem(todo.id);
               },
             ),
           ),
